@@ -1,3 +1,5 @@
+package domain;
+
 /**
  * Created by Melious on 15.11.2016.
  */
