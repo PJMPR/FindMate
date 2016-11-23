@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import domain.model.Account;
 import domain.model.Like;
 
 public class LikeRepository {
@@ -21,11 +24,17 @@ public class LikeRepository {
 
     private Statement createTable;
 
-    private String insertSql = "INSERT INTO historyLog(sendDate,accountFrom,accountTo) VALUES(?,?,?)";
-    private String deleteSql = "DELETE FROM historyLog WHERE id = ?";
+    private String insertSql = "INSERT INTO like(sendDate,likeFrom,likeTo) VALUES(?,?,?)";
+    private String deleteSql = "DELETE FROM like WHERE likeId = ?";
+    private String updateSql = "UPDATE account set sendDate=?, likeFrom=?, likeTo=? WHERE likeId=?";
+    private String selectByIdSql = "SELECT * FROM like WHERE likeId=?";
+    private String selectAllSql = "SELECT * FROM like";
 
     private PreparedStatement insert;
     private PreparedStatement delete;
+    private PreparedStatement update;
+    private PreparedStatement selectById;
+    private PreparedStatement selectAll;
 
     public LikeRepository(Connection connection) {
         this.connection = connection;
@@ -73,5 +82,58 @@ public class LikeRepository {
         }
 
     }
+    
+    public void update(Like li){
+        try{
 
+            update.setString(1, li.getSendDate().toString());
+            update.setInt(2, li.getLikeFrom());
+            update.setInt(3, li.getLikeTo());
+            update.executeUpdate();
+
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+}
+    public Like get(int likeId){
+        try{
+
+            selectById.setInt(1, likeId);
+            ResultSet rs = selectById.executeQuery();
+            while(rs.next()){
+                Like result = new Like();
+                result.setLikeId(likeId);
+                result.setSendDate(rs.getDate("sendDate"));
+                result.setLikeFrom(rs.getInt("likeFrom"));
+                result.setLikeTo(rs.getInt("likeTo"));
+                return result;
+            }
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    public List<Like> getAll(){
+        try{
+            List<Like> result = new ArrayList<Like>();
+            ResultSet rs = selectAll.executeQuery();
+            while(rs.next()){
+                Like li = new Like();
+                li.setLikeId(rs.getInt("likeId"));
+                li.setSendDate(rs.getDate("sendDate"));
+                li.setLikeFrom(rs.getInt("likeFrom"));
+                li.setLikeTo(rs.getInt("likeTo"));
+                result.add(li);
+            }
+            return result;
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    
 }
