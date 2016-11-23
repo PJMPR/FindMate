@@ -1,4 +1,4 @@
-package domain;
+package domain.model;
 
 /**
  * Created by Melious on 15.11.2016.
@@ -9,6 +9,7 @@ public class Account {
     private String userName;
     private String userPassword;
     private String userEmail;
+    private Profile profile;
 
     public int getUserId() {
         return userId;
@@ -42,6 +43,9 @@ public class Account {
         this.userEmail = userEmail;
     }
 
+    public Profile getProfile() {return profile;}
+
+    public void setProfile(Profile profile) {this.profile = profile;}
 
 
 

@@ -1,5 +1,6 @@
-package domain;
+package domain.model;
 
+import java.util.List;
 /**
  * Created by Melious on 15.11.2016.
  */
@@ -11,6 +12,7 @@ public class Profile {
     private String lastName;
     private String city;
     private String country;
+    private List<Like> likes;
 
 
     public int getProfileId() { return profileId; }
@@ -56,6 +58,10 @@ public class Profile {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public List<Like> getLikes() {return likes;}
+
+    public void setLikes(List<Like> likes) {this.likes = likes;}
 
 
 
