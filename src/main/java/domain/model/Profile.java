@@ -4,9 +4,9 @@ import java.util.List;
 /**
  * Created by Melious on 15.11.2016.
  */
-public class Profile {
+public class Profile implements IHaveId{
 
-    private int profileId;
+    private int id;
     private int age;
     private String firstName;
     private String lastName;
@@ -15,9 +15,9 @@ public class Profile {
     private List<Like> likes;
 
 
-    public int getProfileId() { return profileId; }
+    public int getId() { return id; }
 
-    public void setProfileId(int profileId) { this.profileId = profileId; }
+    public void setId(int id) { this.id = id; }
 
     public int getAge() {
         return age;

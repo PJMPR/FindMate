@@ -3,20 +3,20 @@ package domain.model;
 /**
  * Created by Melious on 15.11.2016.
  */
-public class Account {
+public class Account implements IHaveId {
 
-    private int userId;
+    private int id;
     private String userName;
     private String userPassword;
     private String userEmail;
     private Profile profile;
 
-    public int getUserId() {
-        return userId;
+    public int getId() {
+        return id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUserName() {

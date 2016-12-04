@@ -72,7 +72,7 @@ public class AccountRepository {
             ResultSet rs = selectById.executeQuery();
             while(rs.next()){
                 Account result = new Account();
-                result.setUserId(userId);
+                result.setId(userId);
                 result.setUserName(rs.getString("userName"));
                 result.setUserPassword(rs.getString("userPassword"));
                 result.setUserEmail(rs.getString("userEmail"));
@@ -91,7 +91,7 @@ public class AccountRepository {
             ResultSet rs = selectAll.executeQuery();
             while(rs.next()){
                 Account p = new Account();
-                p.setUserId(rs.getInt("userId"));
+                p.setId(rs.getInt("userId"));
                 p.setUserName(rs.getString("userName"));
                 p.setUserPassword(rs.getString("userPassword"));
                 p.setUserEmail(rs.getString("userEmail"));
@@ -107,7 +107,7 @@ public class AccountRepository {
 
     public void delete(Account a){
         try{
-            delete.setInt(1, a.getUserId());
+            delete.setInt(1, a.getId());
             delete.executeUpdate();
         }catch(SQLException ex){
             ex.printStackTrace();
@@ -134,7 +134,7 @@ public class AccountRepository {
             update.setString(1, a.getUserName());
             update.setString(2, a.getUserPassword());
             update.setString(3, a.getUserEmail());
-            update.setInt(4, a.getUserId());
+            update.setInt(4, a.getId());
             update.executeUpdate();
 
         }catch(SQLException ex){

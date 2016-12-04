@@ -4,17 +4,17 @@ import java.util.Date;
 /**
  * Created by Mela on 2016-11-19.
  */
-public class Like {
+public class Like implements IHaveId{
 
 
-    private int likeId;
+    private int id;
     private Date sendDate;
     private int likeFrom;
     private int likeTo;
 
-    public int getLikeId() {return likeId;}
+    public int getId() {return id;}
 
-    public void setLikeId(int likeId) {this.likeId = likeId;}
+    public void setId(int id) {this.id = id;}
 
     public Date getSendDate() {return sendDate;}
 

@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.model.Account;
 import domain.model.Like;
 
 public class LikeRepository {
@@ -62,7 +61,7 @@ public class LikeRepository {
 
     public void delete(Like li){
         try{
-            delete.setInt(1, li.getLikeId());
+            delete.setInt(1, li.getId());
             delete.executeUpdate();
         }catch(SQLException ex){
             ex.printStackTrace();
@@ -102,7 +101,7 @@ public class LikeRepository {
             ResultSet rs = selectById.executeQuery();
             while(rs.next()){
                 Like result = new Like();
-                result.setLikeId(likeId);
+                result.setId(likeId);
                 result.setSendDate(rs.getDate("sendDate"));
                 result.setLikeFrom(rs.getInt("likeFrom"));
                 result.setLikeTo(rs.getInt("likeTo"));
@@ -121,7 +120,7 @@ public class LikeRepository {
             ResultSet rs = selectAll.executeQuery();
             while(rs.next()){
                 Like li = new Like();
-                li.setLikeId(rs.getInt("likeId"));
+                li.setId(rs.getInt("likeId"));
                 li.setSendDate(rs.getDate("sendDate"));
                 li.setLikeFrom(rs.getInt("likeFrom"));
                 li.setLikeTo(rs.getInt("likeTo"));

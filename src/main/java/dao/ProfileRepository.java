@@ -74,7 +74,7 @@ public ProfileRepository(Connection connection){
 
     public void delete(Profile p){
         try{
-            delete.setInt(1, p.getProfileId());
+            delete.setInt(1, p.getId());
             delete.executeUpdate();
         }catch(SQLException e){e.printStackTrace();}
     }
@@ -86,7 +86,7 @@ public ProfileRepository(Connection connection){
             update.setString(3, p.getLastName());
             update.setString(4, p.getCity());
             update.setString(5, p.getCountry());
-            update.setInt(6, p.getProfileId());
+            update.setInt(6, p.getId());
 
             update.executeUpdate();
         } catch(SQLException e){e.printStackTrace();}
@@ -98,7 +98,7 @@ public ProfileRepository(Connection connection){
             ResultSet rs = selectById.executeQuery();
             while(rs.next()){
                 Profile result = new Profile();
-                result.setProfileId(profileId);
+                result.setId(profileId);
                 result.setAge(rs.getInt("age"));
                 result.setFirstName(rs.getString("firstName"));
                 result.setLastName(rs.getString("lastName"));
@@ -117,7 +117,7 @@ public ProfileRepository(Connection connection){
             ResultSet rs = selectAll.executeQuery();
             while(rs.next()){
                 Profile p = new Profile();
-                p.setProfileId(rs.getInt("profileId"));
+                p.setId(rs.getInt("profileId"));
                 p.setAge(rs.getInt("age"));
                 p.setFirstName(rs.getString("firstName"));
                 p.setLastName(rs.getString("lastName"));
