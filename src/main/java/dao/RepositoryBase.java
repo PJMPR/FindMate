@@ -3,7 +3,6 @@ package dao;
 import domain.model.IHaveId;
 import dao.mappers.IMapResultIntoEntity;
 
-import javax.swing.plaf.InputMapUIResource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
