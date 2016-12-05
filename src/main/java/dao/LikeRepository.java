@@ -34,7 +34,9 @@ public class LikeRepository extends RepositoryBase<Like>{
     protected String updateSql() {
         return "UPDATE likes set sendDate=?, likeFrom=?, likeTo=? WHERE likeId=?";
     }
-    protected String selectByIdSql() {return "SELECT * FROM likes WHERE likeId=?";}
+    protected String selectByIdSql() {
+        return "SELECT * FROM likes WHERE likeId=?";
+    }
     protected String selectAllSql() {
         return "SELECT * FROM likes";
     }

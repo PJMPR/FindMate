@@ -57,8 +57,6 @@ public class App
             repo1.add(like);
 
 
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
