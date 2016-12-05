@@ -10,6 +10,7 @@ public class Account implements IHaveId {
     private String userPassword;
     private String userEmail;
     private Profile profile;
+    private int profileId;
 
     public int getId() {
         return id;
@@ -47,7 +48,7 @@ public class Account implements IHaveId {
 
     public void setProfile(Profile profile) {this.profile = profile;}
 
+    public int getProfileId() {return profileId;}
 
-
-
+    public void setProfileId(int profileId) {this.profileId = profileId;}
 }
