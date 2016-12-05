@@ -99,18 +99,18 @@ public abstract class RepositoryBase <TEntity extends IHaveId> implements IRepos
         }catch(SQLException e){e.printStackTrace();}
     }
 
-    private void createTableIfNotExists() throws SQLException {
+    private void createTableIfNotExists()
+            throws SQLException {
         boolean tableExists = false;
-        ResultSet rs = connection.getMetaData().getTables(null,null,null,null);
-        while (rs.next()){
-            if (rs.getString("TABLE_NAME").equalsIgnoreCase(tableName())){
+        ResultSet rs = connection.getMetaData().getTables(null, null, null, null);
+        while(rs.next()){
+            if(rs.getString("TABLE_NAME").equalsIgnoreCase(tableName())){
                 tableExists=true;
                 break;
             }
-            if(!tableExists){
-                createTable.executeUpdate(createTableSql());
-            }
         }
+        if(!tableExists)
+            createTable.executeUpdate(createTableSql());
     }
 
     protected String deleteSql(){
