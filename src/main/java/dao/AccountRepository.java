@@ -1,16 +1,18 @@
 package dao;
 
+import dao.uow.IUnitOfWork;
 import domain.model.Account;
 import dao.mappers.IMapResultIntoEntity;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 
-public class AccountRepository extends RepositoryBase<Account>{
+public class AccountRepository extends RepositoryBase<Account> implements IAccountRepository{
 
-    public AccountRepository(Connection connection, IMapResultIntoEntity<Account> mapper){
-        super(connection, mapper);
+    public AccountRepository(Connection connection, IMapResultIntoEntity<Account> mapper, IUnitOfWork uow){
+        super(connection, mapper, uow);
     }
 
     protected String tableName(){
@@ -55,5 +57,9 @@ public class AccountRepository extends RepositoryBase<Account>{
         update.setInt(4, entity.getProfileId());
     }
 
+    public List<Account> withUserName(String userName) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

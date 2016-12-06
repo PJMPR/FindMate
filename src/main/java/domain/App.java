@@ -3,14 +3,10 @@ package domain;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
-import dao.AccountRepository;
-import dao.ProfileRepository;
-import dao.LikeRepository;
-import dao.mappers.AccountMapper;
-import dao.mappers.LikeMapper;
-import dao.mappers.IMapResultIntoEntity;
-import dao.mappers.ProfileMapper;
+import dao.*;
+import dao.uow.UnitOfWork;
 import domain.model.Account;
 import domain.model.Like;
 import domain.model.Profile;
@@ -22,23 +18,18 @@ public class App
         String url = "jdbc:hsqldb:hsql://localhost/workdb";
         try {
             Connection connection = DriverManager.getConnection(url);
-            IMapResultIntoEntity<Profile> profileMapper = new ProfileMapper();
-            IMapResultIntoEntity<Like> likeMapper = new LikeMapper();
-            IMapResultIntoEntity<Account> accountMapper = new AccountMapper();
-
-            ProfileRepository repo = new ProfileRepository(connection, profileMapper);
-            LikeRepository repo1 = new LikeRepository(connection, likeMapper);
-            AccountRepository repo2 = new AccountRepository(connection,accountMapper);
+            IRepositoryCatalog catalog = new RepositoryCatalog(new UnitOfWork(connection), connection);
 
             Profile profile = new Profile();
             profile.setFirstName("Jan");
             profile.setLastName("Kowalski");
             profile.setAge(23);
-            profile.setCity("Bydgoszcz");
+            profile.setCity("Warszawa");
             profile.setCountry("Polska");
 
             System.out.println( "Profile added!" );
-            repo.add(profile);
+            catalog.profiles().add(profile);
+            List<Profile> warszawiacy = catalog.profiles().withCity("Warszawa");
 
             Account user= new Account();
             user.setUserName("SuperJanek");
@@ -47,14 +38,18 @@ public class App
             user.setProfileId(1);
 
             System.out.println( "User added!" );
-            repo2.add(user);
+            catalog.users().add(user);
+            List<Account> nazwaSuperJanek = catalog.users().withUserName("SuperJanek");
 
             Like like = new Like();
             like.setLikeFrom(1);
             like.setLikeTo(2);
 
             System.out.println( "Like added!" );
-            repo1.add(like);
+            catalog.likes().add(like);
+          //  List<Like> lajki = catalog.likes().byProfile(profile);
+
+            catalog.saveAndClose();
 
 
         } catch (SQLException e) {

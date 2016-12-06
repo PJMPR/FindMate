@@ -1,5 +1,8 @@
 package dao;
 
+import dao.uow.Entity;
+import dao.uow.IUnitOfWork;
+import dao.uow.IUnitOfWorkRepository;
 import domain.model.IHaveId;
 import dao.mappers.IMapResultIntoEntity;
 
@@ -14,10 +17,11 @@ import java.util.List;
 /**
  * Created by Mela on 2016-12-05.
  */
-public abstract class RepositoryBase <TEntity extends IHaveId> implements IRepository <TEntity>{
+public abstract class RepositoryBase<TEntity extends IHaveId>
+        implements IRepository<TEntity>, IUnitOfWorkRepository {
 
     protected Connection connection;
-
+    protected IUnitOfWork uow;
     protected Statement createTable;
 
     protected PreparedStatement insert;
@@ -28,8 +32,8 @@ public abstract class RepositoryBase <TEntity extends IHaveId> implements IRepos
 
     protected IMapResultIntoEntity<TEntity> mapper;
 
-    protected RepositoryBase(Connection connection, IMapResultIntoEntity<TEntity> mapper){
-
+    protected RepositoryBase(Connection connection, IMapResultIntoEntity<TEntity> mapper, IUnitOfWork uow){
+        this.uow = uow;
         this.connection = connection;
         this.mapper = mapper;
 
@@ -73,30 +77,45 @@ public abstract class RepositoryBase <TEntity extends IHaveId> implements IRepos
     }
 
     public void add(TEntity entity){
-        try{
+        uow.markAsNew(new Entity(entity), this);
 
-            setupInsert(entity);
-            insert.executeUpdate();
-
-        }catch(SQLException e){e.printStackTrace();}
     }
-
-    public void update(TEntity entity){
-        try{
-
-            setupUpdate(entity);
-            update.executeUpdate();
-
-        }catch(SQLException e){e.printStackTrace();}
-    }
-
     public void delete(TEntity entity){
+        uow.markAsDeleted(new Entity(entity), this);
+
+    }
+    public void update(TEntity entity){
+        uow.markAsChanged(new Entity(entity), this);
+    }
+
+
+    public void persistAdd(Entity entity){
         try{
+            setupInsert((TEntity)entity.getEntity());
+            insert.executeUpdate();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
 
-            delete.setInt(1,entity.getId());
+    }
+
+    public void persistUpdate(Entity entity){
+        try{
+            setupUpdate((TEntity)entity.getEntity());
+            update.executeUpdate();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+
+    }
+
+    public void persistDelete(Entity entity){
+        try{
+            delete.setInt(1, ((TEntity)entity.getEntity()).getId());
             delete.executeUpdate();
-
-        }catch(SQLException e){e.printStackTrace();}
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
     }
 
     private void createTableIfNotExists()

@@ -2,14 +2,16 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import dao.mappers.IMapResultIntoEntity;
+import dao.uow.IUnitOfWork;
 import domain.model.Profile;
 
-public class ProfileRepository extends RepositoryBase<Profile>{
+public class ProfileRepository extends RepositoryBase<Profile> implements IProfileRepository{
 
-    public ProfileRepository(Connection connection, IMapResultIntoEntity<Profile> mapper){
-        super(connection,mapper);
+    public ProfileRepository(Connection connection, IMapResultIntoEntity<Profile> mapper, IUnitOfWork uow){
+        super(connection,mapper,uow);
     }
 
     @Override
@@ -58,6 +60,11 @@ public class ProfileRepository extends RepositoryBase<Profile>{
             update.setString(4, entity.getCity());
             update.setString(5, entity.getCountry());
             update.setInt(6, entity.getId());
+    }
+
+    public List<Profile> withCity(String city) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

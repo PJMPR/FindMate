@@ -2,15 +2,18 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 
 import dao.mappers.IMapResultIntoEntity;
+import dao.uow.IUnitOfWork;
+import domain.model.Profile;
 import domain.model.Like;
 
-public class LikeRepository extends RepositoryBase<Like>{
+public class LikeRepository extends RepositoryBase<Like> implements ILikeRepository{
 
-    public LikeRepository(Connection connection, IMapResultIntoEntity<Like> mapper) {
-        super(connection,mapper);
+    public LikeRepository(Connection connection, IMapResultIntoEntity<Like> mapper, IUnitOfWork uow) {
+        super(connection,mapper,uow);
     }
 
     protected String tableName(){
@@ -52,4 +55,8 @@ public class LikeRepository extends RepositoryBase<Like>{
             update.setInt(2, entity.getLikeFrom());
             update.setInt(3, entity.getLikeTo());
 }
+    public List<Like> byProfile(Profile profile) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
