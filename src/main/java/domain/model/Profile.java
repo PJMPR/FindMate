@@ -1,5 +1,6 @@
 package domain.model;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Created by Melious on 15.11.2016.

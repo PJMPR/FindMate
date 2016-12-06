@@ -8,7 +8,7 @@ public class Like implements IHaveId{
 
 
     private int id;
-    private Date sendDate;
+    private Date sendDate = new Date();
     private int likeFrom;
     private int likeTo;
 
@@ -16,9 +16,7 @@ public class Like implements IHaveId{
 
     public void setId(int id) {this.id = id;}
 
-    public Date getSendDate() {
-       Date sendDate = new Date();
-        return sendDate;}
+    public Date getSendDate() {return sendDate;}
 
     public void setSendDate(Date sendDate) {this.sendDate = sendDate;}
 
