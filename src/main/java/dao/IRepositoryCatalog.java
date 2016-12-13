@@ -9,4 +9,5 @@ public interface IRepositoryCatalog {
     public ILikeRepository likes();
 
     public void saveAndClose();
+    public void save();
 }

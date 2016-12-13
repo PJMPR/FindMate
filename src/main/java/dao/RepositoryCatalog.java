@@ -41,7 +41,14 @@ public class RepositoryCatalog implements IRepositoryCatalog{
         }catch(SQLException ex){
             ex.printStackTrace();
         }
+    }
+    public void save() {
+        try{
+            uow.commit();
 
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
     }
 
 }

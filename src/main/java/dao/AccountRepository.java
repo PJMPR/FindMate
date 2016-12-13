@@ -25,7 +25,8 @@ public class AccountRepository extends RepositoryBase<Account> implements IAccou
             + "userName VARCHAR(10),"
             + "userPassword VARCHAR(10),"
             + "userEmail VARCHAR(20),"
-            + "profileId INT,"
+            + "profileId INT, "
+                + "FOREIGN KEY (profileId) REFERENCES profile(id)"
             + ")";}
 
     protected String insertSql() {

@@ -27,19 +27,27 @@ public class App
             profile.setCity("Warszawa");
             profile.setCountry("Polska");
 
+            catalog.save();
+
             System.out.println( "Profile added!" );
             catalog.profiles().add(profile);
             List<Profile> warszawiacy = catalog.profiles().withCity("Warszawa");
+
+
 
             Account user= new Account();
             user.setUserName("SuperJanek");
             user.setUserPassword("qwerty");
             user.setUserEmail("janus@gmail.com");
-            user.setProfileId(1);
+            user.setProfileId(catalog.profiles().get(1).getAge());
+
+            catalog.save();
 
             System.out.println( "User added!" );
             catalog.users().add(user);
             List<Account> nazwaSuperJanek = catalog.users().withUserName("SuperJanek");
+
+            catalog.save();
 
             Like like = new Like();
             like.setLikeFrom(1);
