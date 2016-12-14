@@ -1,7 +1,10 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,6 +17,11 @@ public class LikeRepository extends RepositoryBase<Like> implements ILikeReposit
 
     public LikeRepository(Connection connection, IMapResultIntoEntity<Like> mapper, IUnitOfWork uow) {
         super(connection,mapper,uow);
+        try{
+            selectByProfile = connection.prepareStatement(selectByProfileSQL());
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     protected String tableName(){
@@ -26,6 +34,8 @@ public class LikeRepository extends RepositoryBase<Like> implements ILikeReposit
             + "sendDate varchar(255),"
             + "likeFrom INT,"
             + "likeTo INT,"
+                + "FOREIGN KEY (likeFrom) REFERENCES profile(id)"
+                + "FOREIGN KEY (likeTo) REFERENCES profile(id)"
             + ")";}
 
     protected String insertSql() {
@@ -55,8 +65,24 @@ public class LikeRepository extends RepositoryBase<Like> implements ILikeReposit
             update.setInt(2, entity.getLikeFrom());
             update.setInt(3, entity.getLikeTo());
 }
-    public List<Like> byProfile(Profile profile) {
-        // TODO Auto-generated method stub
+    public List<Like> byProfile(Integer likeTo){
+        try {
+            List<Like> result = new ArrayList<Like>();
+            selectByProfile.setInt(1, likeTo);
+            ResultSet rs = selectByProfile.executeQuery();
+            while (rs.next()) {
+                result.add(mapper.map(rs));
+            }
+            return result;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         return null;
     }
+
+    private PreparedStatement selectByProfile;
+    private String selectByProfileSQL() {
+        return "Select * FROM " + tableName() + " where likeTo =?";
+    }
+
 }

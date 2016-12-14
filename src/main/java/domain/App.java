@@ -20,6 +20,8 @@ public class App
             Connection connection = DriverManager.getConnection(url);
             IRepositoryCatalog catalog = new RepositoryCatalog(new UnitOfWork(connection), connection);
 
+            ///////////////////////////////////////////////////
+
             Profile profile = new Profile();
             profile.setFirstName("Jan");
             profile.setLastName("Kowalski");
@@ -27,37 +29,56 @@ public class App
             profile.setCity("Warszawa");
             profile.setCountry("Polska");
 
-            catalog.save();
-
             System.out.println( "Profile added!" );
             catalog.profiles().add(profile);
-            List<Profile> warszawiacy = catalog.profiles().withCity("Warszawa");
 
+            Profile profile2 = new Profile();
+            profile2.setFirstName("Amelia");
+            profile2.setLastName("Asmus");
+            profile2.setAge(20);
+            profile2.setCity("Puck");
+            profile2.setCountry("Polska");
 
+            System.out.println( "Profile added!" );
+            catalog.profiles().add(profile2);
+
+            Profile profile3 = new Profile();
+            profile3.setFirstName("John");
+            profile3.setLastName("Smith");
+            profile3.setAge(38);
+            profile3.setCity("New York");
+            profile3.setCountry("USA");
+
+            System.out.println( "Profile added!" );
+            catalog.profiles().add(profile3);
+
+            catalog.save();
+
+        ////////////////////////////////////////////////////////
 
             Account user= new Account();
             user.setUserName("SuperJanek");
             user.setUserPassword("qwerty");
             user.setUserEmail("janus@gmail.com");
-            user.setProfileId(catalog.profiles().get(1).getAge());
-
-            catalog.save();
+            user.setProfileId(catalog.profiles().get(0).getId());
 
             System.out.println( "User added!" );
             catalog.users().add(user);
-            List<Account> nazwaSuperJanek = catalog.users().withUserName("SuperJanek");
 
             catalog.save();
 
+        //////////////////////////////////////////////////////////
+
             Like like = new Like();
-            like.setLikeFrom(1);
-            like.setLikeTo(2);
+            like.setLikeFrom(catalog.profiles().get(0).getId());
+            like.setLikeTo(catalog.profiles().get(2).getId());
 
             System.out.println( "Like added!" );
             catalog.likes().add(like);
-          //  List<Like> lajki = catalog.likes().byProfile(profile);
 
             catalog.saveAndClose();
+
+        /////////////////////////////////////////////////////////////
 
 
         } catch (SQLException e) {
