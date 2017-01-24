@@ -13,9 +13,11 @@ import domain.model.Profile;
 
 public class App
 {
+    public static final String CONNECTION_STRING="jdbc:hsqldb:hsql://localhost/workdb";
+
     public static void main( String[] args )
     {
-        String url = "jdbc:hsqldb:hsql://localhost/workdb";
+        /*String url = "jdbc:hsqldb:hsql://localhost/workdb";
         try {
             Connection connection = DriverManager.getConnection(url);
             IRepositoryCatalog catalog = new RepositoryCatalog(new UnitOfWork(connection), connection);
@@ -86,6 +88,6 @@ public class App
         }
 
         System.out.println( "Koniec" );
-
+*/
     }
 }

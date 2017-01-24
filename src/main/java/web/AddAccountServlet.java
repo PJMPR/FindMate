@@ -1,6 +1,8 @@
 package web;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,10 +22,14 @@ public class AddAccountServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Account account = new Account();
-        account.setUserName(request.getParameter("name"));
-        account.setUserPassword(request.getParameter("surname"));
+        account.setUserName(request.getParameter("userName"));
+        account.setUserPassword(request.getParameter("password"));
+        account.setUserEmail(request.getParameter("email"));
         HttpSession session = request.getSession();
         session.setAttribute(SessionKey.account, account);
+
+
+
         response.sendRedirect("addProfile.html");
 
     }

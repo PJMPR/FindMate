@@ -6,41 +6,41 @@
 </head>
 <body>
 
-<form action="logIn.html" method="post">
+<form action="addProfileServlet" method="get">
 
     <table cellpadding="2" width="20%" bgcolor="#ccd9ff" align="center"
            cellspacing="2">
 
         <tr>
             <td>First name</td>
-            <td><input type="text" name="firstName" size="30"></td>
+            <td><input type="text" name="firstName" size="30" required></td>
         </tr>
 
         <tr>
             <td>Last name</td>
-            <td><input type="text" name="lastName" size="30"></td>
+            <td><input type="text" name="lastName" size="30" required></td>
         </tr>
 
         <tr>
             <td>Age</td>
-            <td><input type="text" name="age" size="30"></td>
+            <td><input type="text" name="age" size="30"  required></td>
         </tr>
 
         <tr>
             <td>City</td>
-            <td><input type="text" name="city" size="30"></td>
+            <td><input type="text" name="city" size="30"  required></td>
         </tr>
 
         <tr>
             <td>Country</td>
-            <td><input type="text" name="country" size="30"></td>
+            <td><input type="text" name="country" size="30" required></td>
         </tr>
 
         <tr>
             <td>
-                <a href="logIn">
-                    <input type="submit" value="Save" size="30">
-                </a>
+
+                    <input type="submit" value="Save" size="30"/>
+
             </td>
         </tr>
 

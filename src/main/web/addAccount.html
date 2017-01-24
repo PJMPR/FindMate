@@ -6,31 +6,31 @@
 </head>
 <body>
 
-<form action="addProfile.html" method="post">
+<form action="addAccountServlet" method="get">
 
     <table cellpadding="2" width="20%" bgcolor="#ccd9ff" align="center"
            cellspacing="2">
 
+
     <tr>
         <td>Username</td>
-        <td><input type="text" name="userName" size="30"></td>
+        <td><input type="text" name="userName" size="30"  required></td>
     </tr>
 
     <tr>
         <td>Password</td>
-        <td><input type="text" name="password" size="30"></td>
+        <td><input type="text" name="password" size="30"  required></td>
     </tr>
 
     <tr>
         <td>E-mail</td>
-        <td><input type="text" name="email" size="30"></td>
+        <td><input type="text" name="email" size="30"  required></td>
     </tr>
 
     <tr>
         <td>
-            <a href="addProfile">
-            <input type="submit" value="Go" size="30">
-            </a>
+                <input type="submit"  value="Go" size="30"/>
+
         </td>
     </tr>
 
